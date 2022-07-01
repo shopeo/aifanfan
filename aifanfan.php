@@ -13,4 +13,20 @@
  * Requires PHP: 5.6
  */
 
+if ( ! function_exists( 'aifanfan_activate' ) ) {
+	function aifanfan_activate() {
+
+	}
+}
+
+register_activation_hook( __FILE__, 'aifanfan_activate' );
+
+
+if ( ! function_exists( 'aifanfan_deactivate' ) ) {
+	function aifanfan_deactivate() {
+
+	}
+}
+
+register_deactivation_hook( __FILE__, 'aifanfan_deactivate' );
 
