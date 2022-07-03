@@ -13,6 +13,23 @@
  * Requires PHP: 5.6
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+// Define AIFANFAN_PLUGIN_FILE.
+if ( ! defined( 'AIFANFAN_PLUGIN_FILE' ) ) {
+	define( 'AIFANFAN_PLUGIN_FILE', __FILE__ );
+}
+
+if ( ! defined( 'AIFANFAN_PLUGIN_BASE' ) ) {
+	define( 'AIFANFAN_PLUGIN_BASE', plugin_basename( AIFANFAN_PLUGIN_FILE ) );
+}
+
+if ( ! defined( 'AIFANFAN_PATH' ) ) {
+	define( 'AIFANFAN_PATH', plugin_dir_path( AIFANFAN_PLUGIN_FILE ) );
+}
+
 if ( ! function_exists( 'aifanfan_activate' ) ) {
 	function aifanfan_activate() {
 
@@ -30,3 +47,10 @@ if ( ! function_exists( 'aifanfan_deactivate' ) ) {
 
 register_deactivation_hook( __FILE__, 'aifanfan_deactivate' );
 
+if ( ! function_exists( 'aifanfan_load_textdomain' ) ) {
+	function aifanfan_load_textdomain() {
+		load_plugin_textdomain( 'aifanfan', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	}
+}
+
+add_action( 'init', 'aifanfan_load_textdomain' );
