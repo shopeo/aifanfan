@@ -54,3 +54,17 @@ if ( ! function_exists( 'aifanfan_load_textdomain' ) ) {
 }
 
 add_action( 'init', 'aifanfan_load_textdomain' );
+
+if ( ! function_exists( 'aifanfan_manage_options' ) ) {
+	function aifanfan_manage_options() {
+
+	}
+}
+
+if ( ! function_exists( 'aifanfan_options_page' ) ) {
+	function aifanfan_options_page() {
+		add_options_page( __( 'Aifanfan', 'aifanfan' ), __( 'Aifanfan', 'aifanfan' ), 'manage_options', 'options_page_aifanfan', 'aifanfan_manage_options', 10 );
+	}
+}
+
+add_action( 'admin_menu', 'aifanfan_options_page' );
