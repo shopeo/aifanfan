@@ -30,6 +30,53 @@ if ( ! defined( 'AIFANFAN_PATH' ) ) {
 	define( 'AIFANFAN_PATH', plugin_dir_path( AIFANFAN_PLUGIN_FILE ) );
 }
 
+if ( ! function_exists( 'aifanfan_sanitize' ) ) {
+	function aifanfan_sanitize( $input ) {
+		$sanitary_values = array();
+
+		if ( isset( $input['aifanfan_link'] ) ) {
+			$sanitary_values['aifanfan_link'] = sanitize_text_field( $input['aifanfan_link'] );
+		}
+
+		if ( isset( $input['aifanfan_code'] ) ) {
+			$sanitary_values['aifanfan_code'] = $input['aifanfan_code'];
+		}
+
+		return $sanitary_values;
+	}
+}
+
+if ( ! function_exists( 'aifanfan_section_info' ) ) {
+	function aifanfan_section_info() {
+		printf( __( 'Find the required setup information via <a target="_blank" href="%1$s">%2$s</a>', 'aifanfan' ), 'https://aifanfan.baidu.com/', 'aifanfan.baidu.com' );
+	}
+}
+
+if ( ! function_exists( 'aifanfan_link_callback' ) ) {
+	function aifanfan_link_callback() {
+		printf( '<input class="regular-text" type="url" name="aifanfan_option_name[aifanfan_link]" id="aifanfan_link" value="%s">', isset( get_option( 'aifanfan_option_name' )['aifanfan_link'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_link'] ) : '' );
+	}
+}
+
+if ( ! function_exists( 'aifanfan_code_callback' ) ) {
+	function aifanfan_code_callback() {
+		printf( '<textarea class="regular-text" rows="5" name="aifanfan_option_name[aifanfan_code]" id="aifanfan_code">%s</textarea>', isset( get_option( 'aifanfan_option_name' )['aifanfan_code'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_code'] ) : '' );
+	}
+}
+
+if ( ! function_exists( 'aifanfan_page_init' ) ) {
+	function aifanfan_page_init() {
+		register_setting( 'aifanfan_option_group', 'aifanfan_option_name', 'aifanfan_sanitize' );
+
+		add_settings_section( 'aifanfan_setting_section', __( 'Settings', 'aifanfan' ), 'aifanfan_section_info', 'aifanfan' );
+
+		add_settings_field( 'aifanfan_link', __( 'Link', 'aifanfan' ), 'aifanfan_link_callback', 'aifanfan', 'aifanfan_setting_section' );
+		add_settings_field( 'aifanfan_code', __( 'Code', 'aifanfan' ), 'aifanfan_code_callback', 'aifanfan', 'aifanfan_setting_section' );
+	}
+}
+
+add_action( 'admin_init', 'aifanfan_page_init' );
+
 if ( ! function_exists( 'aifanfan_activate' ) ) {
 	function aifanfan_activate() {
 
@@ -41,7 +88,7 @@ register_activation_hook( __FILE__, 'aifanfan_activate' );
 
 if ( ! function_exists( 'aifanfan_deactivate' ) ) {
 	function aifanfan_deactivate() {
-
+		delete_option( 'aifanfan_option_name' );
 	}
 }
 
@@ -57,7 +104,18 @@ add_action( 'init', 'aifanfan_load_textdomain' );
 
 if ( ! function_exists( 'aifanfan_manage_options' ) ) {
 	function aifanfan_manage_options() {
-
+		?>
+		<div class="wrap">
+			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+			<form action="options.php" method="post">
+				<?php
+				settings_fields( 'aifanfan_option_group' );
+				do_settings_sections( 'aifanfan' );
+				submit_button( __( 'Save Settings', 'aifanfan' ) );
+				?>
+			</form>
+		</div>
+		<?php
 	}
 }
 
