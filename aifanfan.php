@@ -126,3 +126,11 @@ if ( ! function_exists( 'aifanfan_options_page' ) ) {
 }
 
 add_action( 'admin_menu', 'aifanfan_options_page' );
+
+if ( ! function_exists( 'aifanfan_head' ) ) {
+	function aifanfan_head() {
+		echo isset( get_option( 'aifanfan_option_name' )['aifanfan_code'] ) ? get_option( 'aifanfan_option_name' )['aifanfan_code'] : '';
+	}
+}
+
+add_action( 'wp_head', 'aifanfan_head' );
