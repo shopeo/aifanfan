@@ -68,7 +68,7 @@ if ( ! function_exists( 'aifanfan_app_key_callback' ) ) {
 
 if ( ! function_exists( 'aifanfan_app_secret_callback' ) ) {
 	function aifanfan_app_secret_callback() {
-		printf( '<input class="regular-text" type="text" name="aifanfan_option_name[aifanfan_app_secret]" id="aifanfan_app_secret" value="%s">', isset( get_option( 'aifanfan_option_name' )['aifanfan_app_secret'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_app_secret'] ) : '' );
+		printf( '<input class="regular-text" type="password" name="aifanfan_option_name[aifanfan_app_secret]" id="aifanfan_app_secret" value="%s">', isset( get_option( 'aifanfan_option_name' )['aifanfan_app_secret'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_app_secret'] ) : '' );
 	}
 }
 
