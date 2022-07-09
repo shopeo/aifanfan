@@ -34,6 +34,14 @@ if ( ! function_exists( 'aifanfan_sanitize' ) ) {
 	function aifanfan_sanitize( $input ) {
 		$sanitary_values = array();
 
+		if ( isset( $input['aifanfan_app_key'] ) ) {
+			$sanitary_values['aifanfan_app_key'] = sanitize_text_field( $input['aifanfan_app_key'] );
+		}
+
+		if ( isset( $input['aifanfan_app_secret'] ) ) {
+			$sanitary_values['aifanfan_app_secret'] = sanitize_text_field( $input['aifanfan_app_secret'] );
+		}
+
 		if ( isset( $input['aifanfan_link'] ) ) {
 			$sanitary_values['aifanfan_link'] = sanitize_text_field( $input['aifanfan_link'] );
 		}
@@ -49,6 +57,18 @@ if ( ! function_exists( 'aifanfan_sanitize' ) ) {
 if ( ! function_exists( 'aifanfan_section_info' ) ) {
 	function aifanfan_section_info() {
 		printf( __( 'Find the required setup information via <a target="_blank" href="%1$s">%2$s</a>', 'aifanfan' ), 'https://aifanfan.baidu.com/', 'aifanfan.baidu.com' );
+	}
+}
+
+if ( ! function_exists( 'aifanfan_app_key_callback' ) ) {
+	function aifanfan_app_key_callback() {
+		printf( '<input class="regular-text" type="text" name="aifanfan_option_name[aifanfan_app_key]" id="aifanfan_app_key" value="%s">', isset( get_option( 'aifanfan_option_name' )['aifanfan_app_key'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_app_key'] ) : '' );
+	}
+}
+
+if ( ! function_exists( 'aifanfan_app_secret_callback' ) ) {
+	function aifanfan_app_secret_callback() {
+		printf( '<input class="regular-text" type="text" name="aifanfan_option_name[aifanfan_app_secret]" id="aifanfan_app_secret" value="%s">', isset( get_option( 'aifanfan_option_name' )['aifanfan_app_secret'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_app_secret'] ) : '' );
 	}
 }
 
@@ -70,6 +90,8 @@ if ( ! function_exists( 'aifanfan_page_init' ) ) {
 
 		add_settings_section( 'aifanfan_setting_section', __( 'Settings', 'aifanfan' ), 'aifanfan_section_info', 'aifanfan' );
 
+		add_settings_field( 'aifanfan_app_key', __( 'AppKey', 'aifanfan' ), 'aifanfan_app_key_callback', 'aifanfan', 'aifanfan_setting_section' );
+		add_settings_field( 'aifanfan_app_secret', __( 'AppSecret', 'aifanfan' ), 'aifanfan_app_secret_callback', 'aifanfan', 'aifanfan_setting_section' );
 		add_settings_field( 'aifanfan_link', __( 'Link', 'aifanfan' ), 'aifanfan_link_callback', 'aifanfan', 'aifanfan_setting_section' );
 		add_settings_field( 'aifanfan_code', __( 'Code', 'aifanfan' ), 'aifanfan_code_callback', 'aifanfan', 'aifanfan_setting_section' );
 	}
