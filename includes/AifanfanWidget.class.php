@@ -5,10 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class AifanfanWidget extends WP_Widget {
 	public $args = array(
-			'before_title'  => '<h4 class="widgettitle">',
-			'after_title'   => '</h4>',
-			'before_widget' => '<div class="widget-wrap">',
-			'after_widget'  => '</div>'
+		'before_title'  => '<h4 class="widgettitle">',
+		'after_title'   => '</h4>',
+		'before_widget' => '<div class="widget-wrap">',
+		'after_widget'  => '</div>'
 	);
 
 	function __construct() {
@@ -25,7 +25,10 @@ class AifanfanWidget extends WP_Widget {
 		}
 		echo '<div class="textwidget subscribe-widget">';
 		if ( ! empty( $instance['text'] ) ) {
-			echo '<a target="_blank" href="' . get_option( 'aifanfan_option_name' )['aifanfan_link'] . '">' . $instance['text'] . '</a>';
+			$options = get_option( 'aifanfan_option_name' );
+			if ( is_array( $options ) && array_key_exists( 'aifanfan_link', $options ) ) {
+				echo '<a target="_blank" href="' . $options['aifanfan_link'] . '">' . $instance['text'] . '</a>';
+			}
 		}
 		echo '</div>';
 		echo $args['after_widget'];
