@@ -88,7 +88,7 @@ if ( ! function_exists( 'aifanfan_page_init' ) ) {
 	function aifanfan_page_init() {
 		register_setting( 'aifanfan_option_group', 'aifanfan_options', 'aifanfan_sanitize' );
 
-		add_settings_section( 'aifanfan_setting_section', __( 'Settings', 'aifanfan' ), 'aifanfan_section_info', 'aifanfan' );
+		add_settings_section( 'aifanfan_setting_section', __( 'Settings', 'aifanfan' ), 'aifanfan_section_info', 'options_aifanfan' );
 
 		add_settings_field( 'aifanfan_app_key', __( 'AppKey', 'aifanfan' ), 'aifanfan_app_key_callback', 'options_aifanfan', 'aifanfan_setting_section' );
 		add_settings_field( 'aifanfan_app_secret', __( 'AppSecret', 'aifanfan' ), 'aifanfan_app_secret_callback', 'options_aifanfan', 'aifanfan_setting_section' );
