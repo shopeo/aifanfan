@@ -62,38 +62,38 @@ if ( ! function_exists( 'aifanfan_section_info' ) ) {
 
 if ( ! function_exists( 'aifanfan_app_key_callback' ) ) {
 	function aifanfan_app_key_callback() {
-		printf( '<input class="regular-text" type="text" name="aifanfan_option_name[aifanfan_app_key]" id="aifanfan_app_key" value="%s">', isset( get_option( 'aifanfan_option_name' )['aifanfan_app_key'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_app_key'] ) : '' );
+		printf( '<input class="regular-text" type="text" name="aifanfan_options[aifanfan_app_key]" id="aifanfan_app_key" value="%s">', isset( get_option( 'aifanfan_options' )['aifanfan_app_key'] ) ? esc_attr( get_option( 'aifanfan_options' )['aifanfan_app_key'] ) : '' );
 	}
 }
 
 if ( ! function_exists( 'aifanfan_app_secret_callback' ) ) {
 	function aifanfan_app_secret_callback() {
-		printf( '<input class="regular-text" type="password" name="aifanfan_option_name[aifanfan_app_secret]" id="aifanfan_app_secret" value="%s">', isset( get_option( 'aifanfan_option_name' )['aifanfan_app_secret'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_app_secret'] ) : '' );
+		printf( '<input class="regular-text" type="password" name="aifanfan_options[aifanfan_app_secret]" id="aifanfan_app_secret" value="%s">', isset( get_option( 'aifanfan_options' )['aifanfan_app_secret'] ) ? esc_attr( get_option( 'aifanfan_options' )['aifanfan_app_secret'] ) : '' );
 	}
 }
 
 if ( ! function_exists( 'aifanfan_link_callback' ) ) {
 	function aifanfan_link_callback() {
-		printf( '<input class="regular-text" type="url" name="aifanfan_option_name[aifanfan_link]" id="aifanfan_link" value="%s">', isset( get_option( 'aifanfan_option_name' )['aifanfan_link'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_link'] ) : '' );
+		printf( '<input class="regular-text" type="url" name="aifanfan_options[aifanfan_link]" id="aifanfan_link" value="%s">', isset( get_option( 'aifanfan_options' )['aifanfan_link'] ) ? esc_attr( get_option( 'aifanfan_options' )['aifanfan_link'] ) : '' );
 	}
 }
 
 if ( ! function_exists( 'aifanfan_code_callback' ) ) {
 	function aifanfan_code_callback() {
-		printf( '<textarea class="regular-text" rows="5" name="aifanfan_option_name[aifanfan_code]" id="aifanfan_code">%s</textarea>', isset( get_option( 'aifanfan_option_name' )['aifanfan_code'] ) ? esc_attr( get_option( 'aifanfan_option_name' )['aifanfan_code'] ) : '' );
+		printf( '<textarea class="regular-text" rows="5" name="aifanfan_options[aifanfan_code]" id="aifanfan_code">%s</textarea>', isset( get_option( 'aifanfan_options' )['aifanfan_code'] ) ? esc_attr( get_option( 'aifanfan_options' )['aifanfan_code'] ) : '' );
 	}
 }
 
 if ( ! function_exists( 'aifanfan_page_init' ) ) {
 	function aifanfan_page_init() {
-		register_setting( 'aifanfan_option_group', 'aifanfan_option_name', 'aifanfan_sanitize' );
+		register_setting( 'aifanfan_option_group', 'aifanfan_options', 'aifanfan_sanitize' );
 
 		add_settings_section( 'aifanfan_setting_section', __( 'Settings', 'aifanfan' ), 'aifanfan_section_info', 'aifanfan' );
 
-		add_settings_field( 'aifanfan_app_key', __( 'AppKey', 'aifanfan' ), 'aifanfan_app_key_callback', 'aifanfan', 'aifanfan_setting_section' );
-		add_settings_field( 'aifanfan_app_secret', __( 'AppSecret', 'aifanfan' ), 'aifanfan_app_secret_callback', 'aifanfan', 'aifanfan_setting_section' );
-		add_settings_field( 'aifanfan_link', __( 'Link', 'aifanfan' ), 'aifanfan_link_callback', 'aifanfan', 'aifanfan_setting_section' );
-		add_settings_field( 'aifanfan_code', __( 'Code', 'aifanfan' ), 'aifanfan_code_callback', 'aifanfan', 'aifanfan_setting_section' );
+		add_settings_field( 'aifanfan_app_key', __( 'AppKey', 'aifanfan' ), 'aifanfan_app_key_callback', 'options_aifanfan', 'aifanfan_setting_section' );
+		add_settings_field( 'aifanfan_app_secret', __( 'AppSecret', 'aifanfan' ), 'aifanfan_app_secret_callback', 'options_aifanfan', 'aifanfan_setting_section' );
+		add_settings_field( 'aifanfan_link', __( 'Link', 'aifanfan' ), 'aifanfan_link_callback', 'options_aifanfan', 'aifanfan_setting_section' );
+		add_settings_field( 'aifanfan_code', __( 'Code', 'aifanfan' ), 'aifanfan_code_callback', 'options_aifanfan', 'aifanfan_setting_section' );
 	}
 }
 
@@ -110,7 +110,7 @@ register_activation_hook( __FILE__, 'aifanfan_activate' );
 
 if ( ! function_exists( 'aifanfan_deactivate' ) ) {
 	function aifanfan_deactivate() {
-		delete_option( 'aifanfan_option_name' );
+		delete_option( 'aifanfan_options' );
 	}
 }
 
@@ -132,7 +132,7 @@ if ( ! function_exists( 'aifanfan_manage_options' ) ) {
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'aifanfan_option_group' );
-				do_settings_sections( 'aifanfan' );
+				do_settings_sections( 'options_aifanfan' );
 				submit_button( __( 'Save Settings', 'aifanfan' ) );
 				?>
 			</form>
@@ -143,7 +143,7 @@ if ( ! function_exists( 'aifanfan_manage_options' ) ) {
 
 if ( ! function_exists( 'aifanfan_options_page' ) ) {
 	function aifanfan_options_page() {
-		add_options_page( __( 'Aifanfan', 'aifanfan' ), __( 'Aifanfan', 'aifanfan' ), 'manage_options', 'options_page_aifanfan', 'aifanfan_manage_options', 10 );
+		add_options_page( __( 'Aifanfan', 'aifanfan' ), __( 'Aifanfan', 'aifanfan' ), 'manage_options', 'options_aifanfan', 'aifanfan_manage_options', 10 );
 	}
 }
 
@@ -152,7 +152,7 @@ add_action( 'admin_menu', 'aifanfan_options_page' );
 if ( ! function_exists( 'aifanfan_head' ) ) {
 	function aifanfan_head() {
 		if ( is_archive() || is_singular() || is_home() || is_404() || is_search() || is_front_page() ) {
-			echo isset( get_option( 'aifanfan_option_name' )['aifanfan_code'] ) ? get_option( 'aifanfan_option_name' )['aifanfan_code'] : '';
+			echo isset( get_option( 'aifanfan_options' )['aifanfan_code'] ) ? get_option( 'aifanfan_options' )['aifanfan_code'] : '';
 		}
 	}
 }
